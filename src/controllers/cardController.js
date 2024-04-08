@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { Card } = require("../db");
 
 const postCard = async ({ title, description, link, task }) => {
@@ -44,12 +45,27 @@ const putCards = async ({ id ,title, description, link, task }) =>{
     await card.save();
   
     return card;
+  }
 
-}
+  const getCardsByName = async({ title }) =>{
+    const card = await Card.findAll({
+      where: {
+        title:{
+          [Op.iLike] : `%${title}`
+        }
+      }
+    })
+
+    if(card === 0){
+      throw new Error(`No hay ninguna coincidencia con ${title}, corriga sus terminos e intente nuevamente`)
+    }
+    return card
+  }
 
 module.exports = {
   postCard,
   getCards,
   getCardsById,
-  putCards
+  putCards,
+  getCardsByName
 };

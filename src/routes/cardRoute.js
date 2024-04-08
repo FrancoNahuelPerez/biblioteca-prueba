@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { postCardHandler, getCardsHandler, getCardsByIdHandler, putCardsHanlder  } = require('../handlers/cardHandler')
+const { postCardHandler, getCardsHandler, getCardsByIdHandler, putCardsHanlder,   } = require('../handlers/cardHandler')
 const routerCard = Router();
 
 routerCard.post('/', postCardHandler)

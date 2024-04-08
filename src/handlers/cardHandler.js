@@ -1,5 +1,5 @@
 
-const { postCard, getCards, getCardsById, putCards } = require('../controllers/cardController')
+const { postCard, getCards, getCardsById, putCards, getCardsByName } = require('../controllers/cardController')
 
 
 const postCardHandler = async (require, response) =>{
@@ -13,8 +13,9 @@ const postCardHandler = async (require, response) =>{
 }
 
 const getCardsHandler = async(require,response) =>{
+    const {title} = require.query
     try {
-        const card = await getCards()
+        const card = title ? await getCardsByName({title}) : await getCards()
         response.status(200).json(card)
     } catch (error) {
         response.status(400).json({error: error.message})
@@ -38,13 +39,24 @@ const putCardsHanlder = async (require, response) =>{
         const card = await putCards({title,task,id, description, link})
         response.status(200).json(card)
     } catch (error) {
-        response.status(400).json({error: error.message})
+        
     }
 }
+
+// const getCardsByNameHandler = async (require,response) =>{
+//     const {title} = require.query
+//     try {
+//         const card = await getCardsByName({title})
+//         response.status(200).json(card)
+//     } catch (error) {
+//         response.status(400).json({error: error.message})
+//     }
+// }
 
 module.exports = {
     postCardHandler,
     getCardsHandler,
     getCardsByIdHandler,
-    putCardsHanlder
+    putCardsHanlder,
+   
 }
