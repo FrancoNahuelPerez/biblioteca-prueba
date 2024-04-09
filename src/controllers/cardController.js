@@ -62,8 +62,13 @@ const getCardsByName = async ({ title }) => {
 };
 
 const destroyCard = async ({ id }) => {
-  const card = await Card.Destroy({ where: { id } });
-  return card
+  const card = await Card.destroy({ where: { id } });
+
+  if (card === 0) {
+    throw new Error(`No se encontró ninguna tarjeta con el ID ${id}`);
+  }
+
+  return `La tarjeta con el ID ${id} ha sido eliminada correctamente`;
 };
 
 module.exports = {
@@ -72,5 +77,5 @@ module.exports = {
   getCardsById,
   putCards,
   getCardsByName,
-  destroyCard
+  destroyCard,
 };
