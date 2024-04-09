@@ -1,5 +1,5 @@
 
-const { postCard, getCards, getCardsById, putCards, getCardsByName } = require('../controllers/cardController')
+const { postCard, getCards, getCardsById, putCards, getCardsByName, destroyCard } = require('../controllers/cardController')
 
 
 const postCardHandler = async (require, response) =>{
@@ -39,7 +39,17 @@ const putCardsHanlder = async (require, response) =>{
         const card = await putCards({title,task,id, description, link})
         response.status(200).json(card)
     } catch (error) {
-        
+        response.status(400).json({error: error.message})
+    }
+}
+
+const destroyCardHandler = async(require, response) => {
+    const {id} = require.params;
+    try {
+        const card = await destroyCard({id})
+        response.status(200).json(card)
+    } catch (error) {
+        response.status(400).json({error: error.message})
     }
 }
 
@@ -58,5 +68,5 @@ module.exports = {
     getCardsHandler,
     getCardsByIdHandler,
     putCardsHanlder,
-   
+   destroyCardHandler
 }
