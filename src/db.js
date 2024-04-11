@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST, DATABASE_URL
+ DATABASE_URL
 } = process.env;
 
 const sequelize = new Sequelize(DATABASE_URL, {
@@ -30,11 +30,13 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { User, Review, Card } = sequelize.models;
+const { User, Review, Card, Tag } = sequelize.models;
 
 User.hasMany(Review,{ foreignKey: 'UserId' })
 Review.belongsTo(User, { foreignKey: 'UserId' })
 User.hasMany(Card)
+Card.belongsToMany(Tag,{ through:"Card-Tag", timestamps:false })
+Tag.belongsToMany(Card,{ through:"Card-Tag", timestamps:false })
 
 // Aca vendrian las relaciones
 

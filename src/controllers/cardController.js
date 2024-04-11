@@ -1,4 +1,4 @@
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 const { Card } = require("../db");
 
 const postCard = async ({ title, description, link, task }) => {

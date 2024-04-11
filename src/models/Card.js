@@ -21,9 +21,6 @@ module.exports = (sequelize) =>{
             allowNull: false
 
         },
-        task:{
-            type: DataTypes.STRING,
-        }
     },
     {
         timestamps: false,
