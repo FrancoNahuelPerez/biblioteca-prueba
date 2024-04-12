@@ -3,9 +3,9 @@ const { postCard, getCards, getCardsById, putCards, getCardsByName, destroyCard 
 
 
 const postCardHandler = async (require, response) =>{
-    const { title, description, link, task  } = require.body
+    const { title, description, link, etiqueta  } = require.body
     try {
-        const card = await postCard({ title, description, link, task  }) 
+        const card = await postCard({ title, description, link, etiqueta ,  }) 
         response.status(200).json(card)
     } catch (error) {
         response.status(400).json({error: error.message})

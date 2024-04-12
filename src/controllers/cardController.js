@@ -1,19 +1,36 @@
 const { Op } = require("sequelize");
-const { Card } = require("../db");
+const { Card, Tag } = require("../db");
 
-const postCard = async ({ title, description, link, task }) => {
+const postCard = async ({ title, description, link,etiqueta }) => {
+
+  const found = await Card.findOne({ where: {title}})
+
+  if(found){
+    throw new Error('Ya existe una card con ese nombre')
+  }
+
   const card = await Card.create({
     title,
     description,
     link,
-    task,
+    etiqueta
   });
+
+  await card.addTag(etiqueta)
 
   return card;
 };
 
 const getCards = async () => {
-  const card = await Card.findAll();
+  const card = await Card.findAll({
+    include: {
+      model: Tag,
+      attributes: ['etiqueta'],
+      through: {
+        attributes: []
+      }
+    }
+  });
 
   return card;
 };

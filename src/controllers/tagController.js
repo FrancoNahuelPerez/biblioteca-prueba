@@ -1,7 +1,7 @@
 const { Tag } = require('../db')
 
-const postTag = async ({title}) =>{
-    const tag = await Tag.create({ title })
+const postTag = async ({ etiqueta }) =>{
+    const tag = await Tag.create({ etiqueta })
 
     return tag
 }

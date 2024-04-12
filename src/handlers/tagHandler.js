@@ -10,9 +10,9 @@ const getTagHandler = async (require,response) =>{
 }
 
 const postTagHandler = async (require,response) =>{
-    const { title } = require.body
+    const { etiqueta } = require.body
     try {
-        const tag = await postTag({ title })
+        const tag = await postTag({ etiqueta })
         response.status(200).json(tag)
     } catch (error) {
         response.status(400).json({error: error.message})
